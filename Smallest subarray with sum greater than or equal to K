@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+using namespace std;
+ 
+int getShortestSubarray(vector<int>& A, int X)
+{
+    int ans = INT_MAX, n = A.size();
+    // vector to store prefix sums
+    vector<long long> prefSum(n);
+    // deque storing index of increasing order prefix sums
+    deque<int> dq;
+ 
+    for (int i = 0; i < n; i++) {
+        prefSum[i] = A[i] + (i == 0 ? 0 : prefSum[i - 1]);
+        if (prefSum[i] >= X)
+            ans = min(ans, i + 1);
+    }
+    for (int i = 0; i < n; i++) {
+        // Check if the subarray ending at i has sum atleast
+        // X
+        while (!dq.empty()
+               && prefSum[i] - prefSum[dq.front()] >= X) {
+            ans = min(ans, i - dq.front());
+            dq.pop_front();
+        }
+ 
+        // Make the deque store prefix sums in increasing
+        // order
+        while (!dq.empty()
+               && prefSum[dq.back()] >= prefSum[i])
+            dq.pop_back();
+        dq.push_back(i);
+    }
+    return ans == INT_MAX ? -1 : ans;
+}
+ 
+int main()
+{
+    int N = 5;
+    vector<int> A{ 10, 20, -25, 5, 35 };
+    int X = 40;
+    cout << getShortestSubarray(A, X);
+    return 0;
+}
+
+            
