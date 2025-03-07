@@ -1,0 +1,32 @@
+// To print last duplicate element and its
+// index in a sorted array
+#include <bits/stdc++.h>
+
+void dupLastIndex(int arr[], int n) {
+
+// if array is null or size is less 
+// than equal to 0 return
+if (arr == NULL || n <= 0) 
+	return;
+
+// compare elements and return last
+// duplicate and its index
+for (int i = n - 1; i > 0; i--) {
+	if (arr[i] == arr[i - 1]) {
+	printf("Last index: %d\nLast "
+			"duplicate item: %d\n", i, arr[i]);
+	return;
+	}
+}
+
+// If we reach here, then no duplicate
+// found.
+printf("no duplicate found");
+}
+
+int main() {
+int arr[] = {1, 5, 5, 6, 6, 7, 9};
+int n = sizeof(arr) / sizeof(int);
+dupLastIndex(arr, n);
+return 0;
+}
