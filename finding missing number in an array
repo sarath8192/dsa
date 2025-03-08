@@ -1,0 +1,27 @@
+// C++ program to find the missing number
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int missingNumber(vector<int> &arr) {
+
+    int n = arr.size() + 1;
+  
+    // Calculate the sum of array elements
+    int sum = 0;
+    for (int i = 0; i < n - 1; i++) {
+        sum += arr[i];
+    }
+
+    // Calculate the expected sum
+    int expectedSum = (n * (n + 1)) / 2;
+
+    // Return the missing number
+    return expectedSum - sum;
+}
+
+int main() {
+    vector<int> arr = {1, 2, 3, 5};
+    cout << missingNumber(arr);
+    return 0;
+}
